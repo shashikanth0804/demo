@@ -13,6 +13,16 @@ const nextConfig = {
         net: false,
         tls: false,
       };
+      
+      // Add aliases for node: scheme modules
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        'node:child_process': false,
+        'node:tty': false,
+        'node:fs': false,
+        'node:net': false,
+        'node:tls': false,
+      };
     }
     return config;
   },
