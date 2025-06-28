@@ -18,7 +18,7 @@ export default clerkMiddleware(async (auth, req) => {
   
   // Call checkUser when user is authenticated and accessing protected routes
   if (userId && isProtectedRoute(req)) {
-    await checkUser();
+    await checkUser(userId);
   }
 });
 
@@ -29,4 +29,5 @@ export const config = {
     // Always run for API routes
     "/(api|trpc)(.*)",
   ],
+  runtime: 'nodejs',
 };
