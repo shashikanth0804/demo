@@ -3,8 +3,6 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import Header from "@/components/header";
 import CreateEventDrawer from "@/components/create-event";
-import { checkUser } from "@/lib/checkUser";
-import { auth } from "@clerk/nextjs/server";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,12 +12,6 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  // Call checkUser when user is authenticated
-  const { userId } = auth();
-  if (userId) {
-    await checkUser();
-  }
-
   return (
     <ClerkProvider>
       <html lang="en">
