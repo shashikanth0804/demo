@@ -1,9 +1,21 @@
+import webpack from 'webpack';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: (config, { isServer }) => {
     if (isServer) {
       config.externals.push('@prisma/client');
     } else {
+      // Add plugin to handle node: scheme imports
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(
+          /^node:/,
+          (resource) => {
+            resource.request = resource.request.replace(/^node:/, '');
+          }
+        )
+      );
+      
       // Add fallbacks for Node.js built-in modules on client-side
       config.resolve.fallback = {
         ...config.resolve.fallback,
