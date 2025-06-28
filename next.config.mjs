@@ -6,6 +6,13 @@ const nextConfig = {
     if (isServer) {
       config.externals.push('@prisma/client');
     } else {
+      // Add IgnorePlugin to completely ignore node: scheme modules on client-side
+      config.plugins.push(
+        new webpack.IgnorePlugin({
+          resourceRegExp: /^node:/,
+        })
+      );
+      
       // Add plugin to handle node: scheme imports
       config.plugins.push(
         new webpack.NormalModuleReplacementPlugin(
